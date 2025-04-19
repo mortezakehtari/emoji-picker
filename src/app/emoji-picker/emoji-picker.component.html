@@ -1,0 +1,46 @@
+<div class="emoji-picker-container">
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Search emojis..." class="emoji-search-input" />
+
+  @if(searchTerm()){
+  <div class="emoji-content-area">
+    @if(filteredEmojis().length > 0){
+    <div class="section-header">Search Results</div>
+    <div class="emoji-list is-search-results">
+      @for(emoji of filteredEmojis(); track emoji.name){
+      <span (click)="selectEmoji(emoji)" class="emoji-item" [attr.aria-label]="emoji.name" role="img">
+        {{ emoji.emoji }}
+      </span>
+      }
+    </div>
+    }
+    @else{
+    <div class="no-results">No emojis found for "{{ searchTerm() }}"</div>
+    }
+  </div>
+  }@else{
+  <div class="emoji-tabs">
+    <button *ngFor="let tabName of sectionTabs()" [class.active]="tabName === activeSectionName()"
+      (click)="setActiveSection(tabName)" class="emoji-tab-button">
+      {{ tabName }}
+    </button>
+  </div>
+
+  <div class="emoji-content-area">
+    <div class="section-header">{{ activeSectionName() }}</div>
+    <div class="emoji-list">
+      @for(emoji of currentSectionEmojis(); track emoji.name){
+      <span class="emoji-item" (click)="selectEmoji(emoji)" [attr.aria-label]="emoji.name" role="img">
+        {{ emoji.emoji }}
+      </span>
+      }
+    </div>
+    @if(currentSectionEmojis().length === 0){
+    <div class="no-emojis-in-section">
+      {{ activeSectionName() === 'Recently Used' ? 'No recently used emojis yet.' : 'No emojis in this category.' }}
+    </div>
+    }
+  </div>
+  }
+
+
+</div>
