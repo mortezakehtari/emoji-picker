@@ -1,4 +1,4 @@
-import { Component, signal, computed, Output, EventEmitter, OnInit, inject, DestroyRef, output } from '@angular/core';
+import { Component, signal, computed, Output, EventEmitter, OnInit, inject, DestroyRef, output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop'; // Import for cleanup if needed, or use constructor effect
@@ -20,6 +20,7 @@ const RECENT_SECTION_NAME = 'Recently Used';
   imports: [CommonModule, FormsModule],
   templateUrl: './emoji-picker.component.html',
   styleUrl: './emoji-picker.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmojiPickerComponent implements OnInit {
 
